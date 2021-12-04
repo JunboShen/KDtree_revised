@@ -24,7 +24,7 @@ struct Tnode
 template <class T, class T1>
 struct shared_ptr<Tnode<T, T1>> newnode(T arr[])
 {
-    struct shared_ptr<Tnode<T, T1>> temp(new Tnode<double, int>);
+    struct shared_ptr<Tnode<T, T1>> temp(new Tnode<T,T1>);
     for (int i = 0; i < k; i++)
         temp->da.number[i] = arr[i];
     temp->left = temp->right = NULL;
@@ -106,8 +106,8 @@ shared_ptr<Tnode<T, T1>> build_kdtree(vectordata<T, T1> set[], T1 size, shared_p
         int split;
         vectordata<T, T1> da;
         ChooseSplit(set, size, split, da);
-        vectordata<T, T1> set_right[100];
-        vectordata<T, T1> set_left[100];
+        vectordata<T, T1> set_right[sizeofset];
+        vectordata<T, T1> set_left[sizeofset];
         int sizeleft, sizeright;
         sizeleft = sizeright = 0;
         for (int i = 0; i < size; ++i)
@@ -169,7 +169,7 @@ bool searchRec(shared_ptr<Tnode<T, T1>> root, T point[])
     return searchRec(root->right, point);
 }
 template <class T, class T1>
-bool search(shared_ptr<Tnode<double, int>> root, T point[])
+bool search(shared_ptr<Tnode<T,T1>> root, T point[])
 {
     return searchRec<T, T1>(root, point);
 }
@@ -202,7 +202,7 @@ shared_ptr<Tnode<T, T1>> insert(shared_ptr<Tnode<T, T1>> root, T point[], vector
     return insertRec<T, T1>(root, point);
 }
 template <class T, class T1>
-int insertnew(shared_ptr<Tnode<double, int>> root, T point[], vectordata<T, T1> set[], T1 id)
+int insertnew(shared_ptr<Tnode<T,T1>> root, T point[], vectordata<T, T1> set[], T1 id)
 {
     insert<T, T1>(root, point, set, id);
     return id + 1;
@@ -211,9 +211,9 @@ int insertnew(shared_ptr<Tnode<double, int>> root, T point[], vectordata<T, T1> 
 //////////////////////////////////////////////////////////////////////////////////////
 //delete
 template <class T, class T1>
-shared_ptr<Tnode<double, int>> minNode(shared_ptr<Tnode<double, int>> t1, shared_ptr<Tnode<double, int>> t2, shared_ptr<Tnode<double, int>> t3, T1 d)
+shared_ptr<Tnode<T,T1>> minNode(shared_ptr<Tnode<T,T1>> t1, shared_ptr<Tnode<T,T1>> t2, shared_ptr<Tnode<T,T1>> t3, T1 d)
 {
-    shared_ptr<Tnode<double, int>> tmp = t1;
+    shared_ptr<Tnode<T,T1>> tmp = t1;
     if (t2 != NULL && t2->da.number[d] < tmp->da.number[d])
         tmp = t2;
     if (t3 != NULL && t3->da.number[d] < tmp->da.number[d])
@@ -294,7 +294,7 @@ shared_ptr<Tnode<T, T1>> deleteNodeRec(shared_ptr<Tnode<T, T1>> root, T point[])
     return root;
 }
 template <class T, class T1>
-shared_ptr<Tnode<double, int>> deleteNode(shared_ptr<Tnode<double, int>> root, T point[]) //delete node
+shared_ptr<Tnode<T,T1>> deleteNode(shared_ptr<Tnode<T,T1>> root, T point[]) //delete node
 {
     return deleteNodeRec<T, T1>(root, point);
 }

@@ -5,12 +5,13 @@
 #include <memory>
 using namespace std;
 const int k = 2;
+const int sizeofset = 100;
 #ifndef KDTREE_H
 #include "kdtree.h"
 #endif
 int main()
 {
-    vectordata<double, int> set[100]; //build empty set
+    vectordata<double, int> set[sizeofset]; //build empty set
     //测试分到另一个文件，clangformat，*template*，内存，智能指针（sharedptr，uniqueptr）基于模板
     //socket programming通信库，Epoll，kubenetes
 
@@ -34,7 +35,7 @@ int main()
 
     //cout<<id;
     //struct Tnode<double,int> *root = NULL;
-    shared_ptr<Tnode<double, int>> root(new Tnode<double, int>);
+    shared_ptr<Tnode<double,int>> root(new Tnode<double,int>);
     root = build_kdtree<double, int>(set, id, root);
 
     double point1[] = {0, 6}; //a new set
